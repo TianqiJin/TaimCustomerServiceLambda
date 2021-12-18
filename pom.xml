@@ -101,11 +101,16 @@
             <artifactId>validationframework-core</artifactId>
             <version>3.4.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.swagger/swagger-annotations -->
         <dependency>
-            <groupId>com.taim</groupId>
-            <artifactId>taimbackendservicelambdamodel</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.1</version>
         </dependency>
     </dependencies>
 
@@ -207,6 +212,60 @@
                                         <descriptor>assembly${file.separator}bin.xml</descriptor>
                                     </descriptors>
                                     <attach>false</attach>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>build</directory>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.openapitools</groupId>
+                        <artifactId>openapi-generator-maven-plugin</artifactId>
+                        <version>4.3.1</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <inputSpec>${project.basedir}/../TaimCustomerServiceLambdaModel/main.yaml</inputSpec>
+                                    <generatorName>spring</generatorName>
+                                    <library>spring-boot</library>
+                                    <output>${project.basedir}/build</output>
+                                    <apiPackage>${groupId}.${artifactId}.api</apiPackage>
+                                    <modelPackage>${groupId}.${artifactId}.model</modelPackage>
+                                    <generateSupportingFiles>false</generateSupportingFiles>
+                                    <typeMappings>
+                                        <typeMapping>float=java.math.BigDecimal</typeMapping>
+                                        <typeMapping>double=java.math.BigDecimal</typeMapping>
+                                    </typeMappings>
+                                    <additionalProperties>
+                                        <additionalProperty>
+                                            apiNameSuffix=abc
+                                        </additionalProperty>
+                                    </additionalProperties>
+                                    <configOptions>
+                                        <sourceFolder>generated-src</sourceFolder>
+                                        <java8>false</java8>
+                                        <interfaceOnly>true</interfaceOnly>
+                                        <generateApiTests>false</generateApiTests>
+                                        <generateModelTests>false</generateModelTests>
+                                        <additionalModelTypeAnnotations>
+                                            @lombok.experimental.SuperBuilder
+                                            @lombok.NoArgsConstructor
+                                            @lombok.AllArgsConstructor
+                                            @lombok.Data
+                                        </additionalModelTypeAnnotations>
+                                    </configOptions>
                                 </configuration>
                             </execution>
                         </executions>

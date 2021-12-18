@@ -1,4 +1,4 @@
-package com.taim.taimcustomerservicelambda.models;
+package com.taim.taimcustomerservicelambda.models.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
@@ -11,9 +11,6 @@ import lombok.Data;
 public class Address{
 
     @DynamoDBAttribute
-    private String streetNum;
-
-    @DynamoDBAttribute
     private String addressLine1;
 
     @DynamoDBAttribute
@@ -23,7 +20,7 @@ public class Address{
     private String city;
 
     @DynamoDBAttribute
-    private String province;
+    private String stateOrProvince;
 
     @DynamoDBAttribute
     private String country;

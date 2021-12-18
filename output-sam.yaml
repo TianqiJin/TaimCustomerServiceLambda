@@ -1,19 +1,16 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Lambda for Taim Customer Service
-
 Globals:
   Api:
-    # API Gateway regional endpoints
     EndpointConfiguration: REGIONAL
-
 Resources:
   TaimCustomerfunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: com.taim.taimcustomerservicelambda.handlers.StreamLambdaHandler::handleRequest
       Runtime: java8
-      CodeUri: target/taimcustomerservicelambda-1.0.0-SNAPSHOT-lambda-package.zip
+      CodeUri: s3://tjin-taim-customer-lambda-bucket/e2839baeabc519644eb058dfa23548c0
       MemorySize: 1512
       Policies: AWSLambdaBasicExecutionRole
       Timeout: 60
@@ -23,10 +20,10 @@ Resources:
           Properties:
             Path: /{proxy+}
             Method: any
-
 Outputs:
   TaimCustomerServiceLambdaApi:
     Description: Customer Url For Taim Customer Service
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Beta/customers'
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Beta/customers
     Export:
       Name: TaimCustomerServiceLambdaApi

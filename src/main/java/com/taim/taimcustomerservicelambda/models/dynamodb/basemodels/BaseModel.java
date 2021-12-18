@@ -1,4 +1,4 @@
-package com.taim.taimcustomerservicelambda.models.basemodels;
+package com.taim.taimcustomerservicelambda.models.dynamodb.basemodels;
 
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;

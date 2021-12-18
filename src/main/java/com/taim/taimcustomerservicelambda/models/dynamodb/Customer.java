@@ -1,13 +1,15 @@
-package com.taim.taimcustomerservicelambda.models;
+package com.taim.taimcustomerservicelambda.models.dynamodb;
 
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
-import com.taim.taimcustomerservicelambda.models.basemodels.BaseModel;
-import com.taim.taimcustomerservicelambda.models.enums.Gender;
-import com.taim.taimcustomerservicelambda.models.enums.UserType;
+import com.taim.taimcustomerservicelambda.models.dynamodb.Address;
+import com.taim.taimcustomerservicelambda.models.dynamodb.basemodels.BaseModel;
+import com.taim.taimcustomerservicelambda.models.dynamodb.enums.Gender;
+import com.taim.taimcustomerservicelambda.models.dynamodb.enums.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,7 +34,7 @@ import java.util.List;
 public class Customer extends BaseModel {
 
     @DynamoDBRangeKey
-    private String customerCode;
+    private String email;
 
     @DynamoDBAttribute
     private String firstName;
@@ -45,9 +47,6 @@ public class Customer extends BaseModel {
 
     @DynamoDBAttribute
     private String phone;
-
-    @DynamoDBAttribute
-    private String email;
 
     @DynamoDBTypeConvertedEnum
     @DynamoDBAttribute
@@ -65,4 +64,7 @@ public class Customer extends BaseModel {
 
     @DynamoDBAttribute
     private String pstNumber;
+
+    @DynamoDBAttribute
+    private String gsiSortKey;
 }

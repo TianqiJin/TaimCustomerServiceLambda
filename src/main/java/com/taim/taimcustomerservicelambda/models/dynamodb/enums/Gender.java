@@ -1,4 +1,4 @@
-package com.taim.taimcustomerservicelambda.models.enums;
+package com.taim.taimcustomerservicelambda.models.dynamodb.enums;
 
 public enum Gender {
 
